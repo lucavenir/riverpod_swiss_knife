@@ -154,5 +154,39 @@ void main() {
         expect(count2, 4);
       });
     });
+    test("can be used multiple times in the same provider", () {
+      fakeAsync((async) {
+        var counter1 = 0;
+        var counter2 = 0;
+        final provider = Provider.autoDispose((ref) {
+          ref.onRepeat(
+            (_) => counter1++,
+            every: 600.milliseconds,
+          );
+          ref.onRepeat(
+            (_) => counter2++,
+            every: 1.seconds,
+          );
+          return "value";
+        });
+
+        container.listen(provider, (_, _) {});
+
+        expect(counter1, 0);
+        expect(counter2, 0);
+
+        async.elapse(600.milliseconds);
+        expect(counter1, 1);
+        expect(counter2, 0);
+
+        async.elapse(500.milliseconds);
+        expect(counter1, 1);
+        expect(counter2, 1);
+
+        async.elapse(100.milliseconds);
+        expect(counter1, 2);
+        expect(counter2, 1);
+      });
+    });
   });
 }
