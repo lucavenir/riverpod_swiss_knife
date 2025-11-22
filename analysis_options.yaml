@@ -1,0 +1,22 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - test/.test_coverage.dart
+
+linter:
+  rules:
+    lines_longer_than_80_chars: false
+    one_member_abstracts: false
+    cascade_invocations: false
+    public_member_api_docs: false
+    prefer_single_quotes: false
+    always_use_package_imports: false
+
+    prefer_double_quotes: true
+    flutter_style_todos: true
+    prefer_relative_imports: true
+
+formatter:
+  page_width: 80
+  trailing_commas: preserve 
