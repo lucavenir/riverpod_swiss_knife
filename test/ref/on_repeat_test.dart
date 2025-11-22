@@ -81,7 +81,7 @@ void main() {
         expect(callCount, 2);
       });
     });
-    test("can exploit timer returned", () {
+    test("can exploit timer returned by onRepeat", () {
       fakeAsync((async) {
         var counter = 0;
         final provider = StreamProvider.autoDispose((ref) {
