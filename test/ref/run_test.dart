@@ -2,6 +2,7 @@ import "dart:async";
 
 import "package:fake_async/fake_async.dart";
 import "package:riverpod/riverpod.dart";
+import "package:riverpod_swiss_knife/src/core/riverpod_cancel_exception.dart";
 import "package:riverpod_swiss_knife/src/ref/run.dart";
 import "package:test/test.dart";
 import "package:time/time.dart";
@@ -12,7 +13,7 @@ void main() {
 
     final asyncProvider = FutureProvider.autoDispose((ref) async {
       await Future<void>.delayed(2.minutes);
-      if (!ref.mounted) throw CanceledOperationException();
+      if (!ref.mounted) throw const RiverpodCancelException();
       return 42069;
     });
 
@@ -54,11 +55,9 @@ void main() {
         expect(container.exists(provider), isFalse);
         expect(container.exists(asyncProvider), isFalse);
 
-        expect(future, throwsA(isA<CanceledOperationException>()));
+        expect(future, throwsA(isA<RiverpodCancelException>()));
         async.flushMicrotasks();
       });
     });
   });
 }
-
-class CanceledOperationException implements Exception {}
