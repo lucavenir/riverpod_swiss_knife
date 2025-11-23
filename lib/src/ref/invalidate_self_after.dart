@@ -6,6 +6,6 @@ import "timeout.dart";
 
 extension RefInvalidateSelfAfter on Ref {
   Timer invalidateSelfAfter(Duration after) {
-    return timeout(after, onTimeout: invalidateSelf);
+    return timeout(invalidateSelf, after: after);
   }
 }

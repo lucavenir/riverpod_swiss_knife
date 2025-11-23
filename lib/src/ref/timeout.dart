@@ -6,8 +6,8 @@ import "../core/fn.dart";
 
 extension RefTimeout on Ref {
   Timer timeout(
-    Duration after, {
-    required FutureOrVoidCallback onTimeout,
+    FutureOrVoidCallback onTimeout, {
+    required Duration after,
   }) {
     final timer = Timer(after, onTimeout);
     onDispose(timer.cancel);

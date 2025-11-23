@@ -19,8 +19,8 @@ void main() {
         var executed = false;
         final provider = Provider.autoDispose((ref) {
           ref.timeout(
-            1.seconds,
-            onTimeout: () => executed = true,
+            () => executed = true,
+            after: 1.seconds,
           );
           return "value";
         });
@@ -39,8 +39,8 @@ void main() {
         var counter = 0;
         final provider = Provider.autoDispose((ref) {
           ref.timeout(
-            500.milliseconds,
-            onTimeout: () => counter++,
+            () => counter++,
+            after: 500.milliseconds,
           );
           return "value";
         });
@@ -59,8 +59,8 @@ void main() {
         var executed = false;
         final provider = Provider.autoDispose((ref) {
           ref.timeout(
-            1.seconds,
-            onTimeout: () => executed = true,
+            () => executed = true,
+            after: 1.seconds,
           );
           return "value";
         });
@@ -82,8 +82,8 @@ void main() {
         var executed = false;
         final provider = Provider.autoDispose((ref) {
           final timer = ref.timeout(
-            2.seconds,
-            onTimeout: () => executed = true,
+            () => executed = true,
+            after: 2.seconds,
           );
           Future<void>.delayed(500.milliseconds, timer.cancel);
           return "value";
@@ -101,8 +101,8 @@ void main() {
         var executed1 = false;
         final provider1 = Provider.autoDispose((ref) {
           ref.timeout(
-            1.seconds,
-            onTimeout: () => executed1 = true,
+            () => executed1 = true,
+            after: 1.seconds,
           );
           return "1";
         });
@@ -110,8 +110,8 @@ void main() {
         var executed2 = false;
         final provider2 = Provider.autoDispose((ref) {
           ref.timeout(
-            500.milliseconds,
-            onTimeout: () => executed2 = true,
+            () => executed2 = true,
+            after: 500.milliseconds,
           );
           return "2";
         });
@@ -136,11 +136,11 @@ void main() {
         var executed = false;
         final provider = Provider.autoDispose((ref) {
           ref.timeout(
-            1.seconds,
-            onTimeout: () async {
+            () async {
               await Future<void>.delayed(100.milliseconds);
               executed = true;
             },
+            after: 1.seconds,
           );
           return "value";
         });
@@ -159,12 +159,12 @@ void main() {
         var executed = false;
         final provider = Provider.autoDispose((ref) {
           ref.timeout(
-            Duration.zero,
-            onTimeout: () async {
+            () async {
               await Future<void>.delayed(Duration.zero, () {
                 executed = true;
               });
             },
+            after: Duration.zero,
           );
           return "value";
         });
@@ -182,12 +182,12 @@ void main() {
         var counter2 = 0;
         final provider = Provider.autoDispose((ref) {
           ref.timeout(
-            500.milliseconds,
-            onTimeout: () => counter1++,
+            () => counter1++,
+            after: 500.milliseconds,
           );
           ref.timeout(
-            1.seconds,
-            onTimeout: () => counter2++,
+            () => counter2++,
+            after: 1.seconds,
           );
           return "value";
         });
