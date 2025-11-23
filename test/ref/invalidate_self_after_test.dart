@@ -120,5 +120,47 @@ void main() {
         expect(count, 4);
       });
     });
+    test("can exploit timer to prematurely cancel invalidation", () {
+      fakeAsync((async) {
+        var count = 0;
+        final provider = Provider.autoDispose((ref) {
+          final timer = ref.invalidateSelfAfter(1.seconds);
+          if (count > 2) {
+            timer.cancel();
+          }
+          return count++;
+        });
+
+        final reader = container.listen(provider, (_, _) {});
+
+        var read = reader.read();
+        expect(count, equals(1));
+        expect(read, equals(0));
+
+        async.elapse(1.seconds);
+
+        expect(count, equals(2));
+        read = reader.read();
+        expect(read, equals(1));
+
+        async.elapse(1.seconds);
+
+        expect(count, equals(3));
+        read = reader.read();
+        expect(read, equals(2));
+
+        async.elapse(1.seconds);
+
+        expect(count, equals(4));
+        read = reader.read();
+        expect(read, equals(3));
+
+        async.elapse(2.hours);
+
+        expect(count, equals(4));
+        read = reader.read();
+        expect(read, equals(3));
+      });
+    });
   });
 }
