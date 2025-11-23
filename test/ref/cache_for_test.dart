@@ -29,10 +29,8 @@ void main() {
         expect(container.exists(provider), isFalse);
       });
     });
-    test("cache time depends on invocation time", () {
+    test("cache time only depends on when it's been invoked", () {
       fakeAsync((async) {
-        // Scenario 1: Cancel after 2 seconds
-        // The provider should remain alive for 5 - 2 = 3 more seconds
         final sub = container.listen(provider, (_, _) {});
 
         async.elapse(2.minutes);
@@ -45,7 +43,7 @@ void main() {
         expect(container.exists(provider), isFalse);
       });
     });
-    test("cache time, if elapsed while listening, won't count anymore", () {
+    test("cache time elapsed while listening acts as if it was never set", () {
       fakeAsync((async) {
         final sub = container.listen(provider, (_, _) {});
 
