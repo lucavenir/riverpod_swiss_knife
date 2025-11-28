@@ -1,7 +1,7 @@
 name: riverpod_swiss_knife
-description: A starting point for Dart libraries or applications.
-version: 0.0.1
-# repository: https://github.com/my_org/my_repo
+description: A collection of utilities and extensions for Riverpod.
+version: 0.0.3
+repository: https://github.com/lucavenir/riverpod_swiss_knife
 
 environment:
   sdk: ^3.10.0
