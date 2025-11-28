@@ -9,7 +9,7 @@ import "package:riverpod/riverpod.dart";
 import "on_repeat.dart";
 
 /// Extension on [Ref] to periodically invalidate a provider.
-extension PeriodicallyInvalidateRef on Ref {
+extension InvalidatePeriodicallyRef on Ref {
   /// Periodically invalidates the given [provider] every [every] duration.
   ///
   /// The periodic invalidation is canceled when the provider is disposed.
@@ -21,7 +21,7 @@ extension PeriodicallyInvalidateRef on Ref {
   ///   - [RefOnRepeat.onRepeat] to execute arbitrary code periodically.
   ///   - [RefInvalidateSelfAfter.invalidateSelfAfter] if you want to
   ///    periodically self-invalidate your provider
-  Timer periodicallyInvalidate<T>(
+  Timer invalidatePeriodically<T>(
     ProviderBase<T> provider, {
     required Duration every,
   }) {

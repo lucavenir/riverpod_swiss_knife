@@ -1,12 +1,12 @@
 import "package:fake_async/fake_async.dart";
 import "package:riverpod/riverpod.dart";
-import "package:riverpod_swiss_knife/src/ref/periodically_invalidate.dart";
+import "package:riverpod_swiss_knife/src/ref/invalidate_periodically.dart";
 import "package:riverpod_swiss_knife/src/ref/timeout.dart";
 import "package:test/test.dart";
 import "package:time/time.dart";
 
 void main() {
-  group("PeriodicallyInvalidateRef", () {
+  group("InvalidatePeriodicallyRef", () {
     late ProviderContainer container;
 
     setUp(() {
@@ -21,7 +21,7 @@ void main() {
         });
 
         final watcher = Provider.autoDispose((ref) {
-          ref.periodicallyInvalidate(target, every: 2.minutes);
+          ref.invalidatePeriodically(target, every: 2.minutes);
           return "watcher";
         });
 
@@ -49,7 +49,7 @@ void main() {
         });
 
         final watcher = Provider.autoDispose((ref) {
-          ref.periodicallyInvalidate(target, every: 2.minutes);
+          ref.invalidatePeriodically(target, every: 2.minutes);
           return "watcher";
         });
 
@@ -74,7 +74,7 @@ void main() {
         });
 
         final watcher = Provider.autoDispose((ref) {
-          final timer = ref.periodicallyInvalidate(
+          final timer = ref.invalidatePeriodically(
             target,
             every: 2.minutes,
           );
@@ -107,7 +107,7 @@ void main() {
         });
 
         Provider.autoDispose((ref) {
-          ref.periodicallyInvalidate(target, every: 100.milliseconds);
+          ref.invalidatePeriodically(target, every: 100.milliseconds);
           return "watcher";
         });
 
