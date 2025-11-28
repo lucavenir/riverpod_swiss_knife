@@ -1,3 +1,6 @@
+## 0.0.4
+- corrected examples
+
 ## 0.0.3
 - added README.md
 - added git repository reference in pubspec.yaml
