@@ -1,3 +1,6 @@
+## 0.0.4+1
+- moved example up one folder to comply with pub.dev guideliens
+
 ## 0.0.4
 - corrected examples
 
